@@ -1,9 +1,8 @@
-import "./App.css";
 
 function App() {
   const turnOnHandle = async (event) => {
     try {
-      const response = await fetch("http://192.168.43.240/16/on");
+      const response = await fetch("https://192.168.43.240/16/on");
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
@@ -15,12 +14,16 @@ function App() {
   };
 
   const turnOffHandle = async (event) => {
-    const response = await fetch("http://192.168.43.240/4/off");
-    if (!response.ok) {
-      throw new Error("Something went wrong");
+    try {
+      const response = await fetch("https://192.168.43.240/4/off");
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
     }
-    const data = await response.json();
-    console.log(data);
   };
 
   return (
