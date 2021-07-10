@@ -2,13 +2,16 @@ import "./App.css";
 
 function App() {
   const turnOnHandle = async (event) => {
-    console.log("clicked!");
-    const response = await fetch("http://192.168.43.240/16/on");
-    if (!response.ok) {
-      throw new Error("Something went wrong");
+    try {
+      const response = await fetch("http://192.168.43.240/16/on");
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
     }
-    const data = await response.json();
-    console.log(data);
   };
 
   const turnOffHandle = async (event) => {
