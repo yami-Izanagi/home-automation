@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
+  const turnOnHandle = async (event) => {
+    console.log("clicked!");
+    const response = await fetch("http://192.168.43.240/16/on");
+    if (!response.ok) {
+      throw new Error("Something went wrong");
+    }
+    const data = await response.json();
+    console.log(data);
+  };
+
+  const turnOffHandle = async (event) => {
+    const response = await fetch("http://192.168.43.240/4/off");
+    if (!response.ok) {
+      throw new Error("Something went wrong");
+    }
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header className="header">
+        <h1>Home Automation</h1>
       </header>
+      <div className="button">
+        <button onClick={turnOnHandle}>Turn On</button>
+        <button onClick={turnOffHandle}>Turn Off</button>
+      </div>
     </div>
   );
 }
